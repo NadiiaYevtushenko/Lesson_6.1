@@ -1,0 +1,17 @@
+{% if questions %}
+    <ul>
+    {% for key, value in questions.items %}
+        <div>
+            <li>{{ key.question_text }}</a></li>
+            {% for choice in value%}
+                {{choice.choice_text}} ({{choice.votes}})
+            {% endfor %}
+        <div>
+    {% endfor %}
+    </ul>
+    </div>
+        <a href="{% url 'index' %}">Go to pools</a>
+    </div>
+{% else %}
+    <p>No results are available.</p>
+{% endif %}
