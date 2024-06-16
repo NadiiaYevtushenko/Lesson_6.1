@@ -1,0 +1,16 @@
+{% if search_result %}
+    <div>
+        <ul>
+            {% for choice in search_result %}
+                <li>{{ choice.choice_text }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% else %}
+    <form method='post' action="{% url 'get_popular_choices' %}">
+        {% csrf_token %}
+        <input type="text" name="search">
+        <br>
+        <button type="submit">Шукати</button>
+    </form>
+{% endif %}

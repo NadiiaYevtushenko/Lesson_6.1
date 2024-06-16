@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from django.urls import reverse
 from django.http import HttpResponse
-from .models import Question, Choice
+from .models import Question, Choice, ChoiceRate
 from .utils import get_questions_context
 
 
@@ -26,3 +27,17 @@ def vote(request, choice_id):
     if choice:
         choice.vote()
     return redirect('index')
+
+
+def get_popular_choices(request):
+    if request.method == "POST":
+        if search_string:=request.POST['search']:
+            choice_rate = ChoiceRate.objects.first().choice_rate
+
+            search_result = Choice.objects.filter(
+                Q(choice_text__icontains=search_string) &
+                Q(votes__gte=choice_rate or 0)
+            )
+            return render(request, 'popular_choices.html', {'search_result': search_result})
+    return render(request, 'popular_choices.html')
+

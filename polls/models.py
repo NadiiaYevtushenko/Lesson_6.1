@@ -17,6 +17,12 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
+
     def vote(self):
         self.votes += 1
         self.save()
+
+
+class ChoiceRate(models.Model):
+    choice_rate = models.IntegerField(default=1)
+
