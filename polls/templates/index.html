@@ -1,17 +1,23 @@
 {% if questions %}
     <ul>
     {% for key, value in questions.items %}
-        <div>
-            <li>{{ key.question_text }}</a></li>
-            {% for choice in value%}
-                <a href="{% url 'vote' choice.id %} ">{{choice.choice_text}}</a>
-            {% endfor %}
-        <div>
+        <li>{{ key.question_text }}</li>
+        <ul>
+        {% for choice in value %}
+            <li>
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'vote' choice.id %}">{{ choice.choice_text }}</a>
+                {% else %}
+                    {{ choice.choice_text }}
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
     {% endfor %}
     </ul>
-    </div>
+    <div>
         <a href="{% url 'results' %}">View results</a>
     </div>
-    {% else %}
+{% else %}
     <p>No polls are available.</p>
 {% endif %}
