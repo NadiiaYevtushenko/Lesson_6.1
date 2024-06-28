@@ -85,7 +85,7 @@ def assign_can_view_results_permission(request):
             if allowed_user:
                 allowed_user.user_permissions.add(can_view_results_permission)
 
-        restricted_users = User.objects.all().exclude(id_in=selected_users)
+        restricted_users = User.objects.all().exclude(id__in=selected_users)
         for user in restricted_users:
             user.user_permissions.remove(can_view_results_permission)
         return redirect('assign_permission')

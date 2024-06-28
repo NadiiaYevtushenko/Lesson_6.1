@@ -1,23 +1,27 @@
-{% if questions %}
-    <ul>
-    {% for key, value in questions.items %}
-        <li>{{ key.question_text }}</li>
+{% extends "nested_results.html" %}
+
+{% block "index" %}
+    {% if questions %}
         <ul>
-        {% for choice in value %}
-            <li>
-                {% if request.user.is_authenticated %}
-                    <a href="{% url 'vote' choice.id %}">{{ choice.choice_text }}</a>
-                {% else %}
-                    {{ choice.choice_text }}
-                {% endif %}
-            </li>
+        {% for key, value in questions.items %}
+            <li>{{ key.question_text }}</li>
+            <ul>
+            {% for choice in value %}
+                <li>
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'vote' choice.id %}">{{ choice.choice_text }}</a>
+                    {% else %}
+                        {{ choice.choice_text }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
         {% endfor %}
         </ul>
-    {% endfor %}
-    </ul>
-    <div>
-        <a href="{% url 'results' %}">View results</a>
-    </div>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+        <div>
+            <a href="{% url 'results' %}">View results</a>
+        </div>
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+{% endblock %}

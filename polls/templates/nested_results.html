@@ -1,0 +1,19 @@
+<body>
+It is {% now "jS F Y H:i" %}
+    <div>
+        {% block "results" %}{% endblock %}
+    </div>
+    <div>
+        Here is a top of the page
+    </div>
+
+    <div>
+        Here is a mid of the page
+    </div>
+    <div>
+        {% block "index" %}{% endblock %}
+    </div>
+    <div>
+        Here is the bottom of the page
+    </div>
+</body>

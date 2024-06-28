@@ -57,3 +57,8 @@ class Enrollment(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     enroll_date = models.DateTimeField(auto_now=True)
+
+    def __repr__(self):
+        return f'Student: {self.student}, Course: {self.course}'
+    def __str__(self):
+        return f'Student: {self.student}, Course: {self.course}'

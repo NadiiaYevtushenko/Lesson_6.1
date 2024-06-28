@@ -1,3 +1,4 @@
+{% load poll_tags %}
 <body>
     <h1>Assign view result permission to select users</h1>
     <form method="post">
@@ -6,11 +7,13 @@
             {% for user in users %}
             <li>
                 <label>
-                    <input type="checkbox" name="users" value="{{ user.id }}">{{ user.username }}
+                    {% has_permission user "polls.can_view_results" as has_per %}
+                    <input type="checkbox" name="users" value="{{ user.id }}" {% if has_perm %} checked {% endif %}>{{ user.username }}
                 </label>
             </li>
             {% endfor %}
         </ul>
         <button type="submit">Submit</button>
+        {% show_enrollments %}
     </form>
 </body>
