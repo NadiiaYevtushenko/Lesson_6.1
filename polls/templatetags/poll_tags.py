@@ -11,3 +11,10 @@ def has_permission(user, permission):
 def show_enrollments():
     course_enrollments = Enrollment.objects.all()
     return {'enrollments': course_enrollments}
+
+
+@register.filter(name='transform_value')
+def transform_value(value):
+    if value=='foo':
+        return ('bar')
+    return value

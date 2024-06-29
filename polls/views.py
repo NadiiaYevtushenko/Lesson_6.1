@@ -91,4 +91,4 @@ def assign_can_view_results_permission(request):
         return redirect('assign_permission')
 
     users = User.objects.all()
-    return render(request, 'assign_perm.html', {'users': users})
+    return render(request, 'assign_perm.html', {'users': users, 'value': 'foo'})
